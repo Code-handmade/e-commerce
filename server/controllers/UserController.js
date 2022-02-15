@@ -1,6 +1,6 @@
 const {user} = require('../models')
 const { decryptPwd } = require('../helpers/bcrypt')
-const { tokenGenerator, tokenVerifier } = require('../helpers/jwt')
+const { tokenGenerator } = require('../helpers/jwt')
 
 
 class UserController{
@@ -38,10 +38,9 @@ class UserController{
             if(result){
                 if (decryptPwd(password, result.password)) {
                     let token = tokenGenerator(result)
-                    let decoded = tokenVerifier(token)
+                    
                     res.status(200).json({
-                        access_token: token,
-                        decoded
+                        access_token: token
                     })
                 } else {
                     res.status(400).json({

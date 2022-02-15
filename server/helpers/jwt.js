@@ -2,9 +2,10 @@ const jwt = require("jsonwebtoken");
 const secretKey = "secret";
 
 const tokenGenerator = (user) => {
-  const { username, email, birth_date, gender, avatar, type } = user;
+  const { id, username, email, birth_date, gender, avatar, type } = user;
   const token = jwt.sign(
     {
+      id,
       username,
       email,
       birth_date,
@@ -14,11 +15,11 @@ const tokenGenerator = (user) => {
     },
     secretKey
   );
-  return token
+  return token;
 };
 const tokenVerifier = (token) => {
-    const decoded = jwt.verify(token, secretKey)
-    return decoded
+  const decoded = jwt.verify(token, secretKey);
+  return decoded;
 };
 
 module.exports = {
