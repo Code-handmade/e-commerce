@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     prod_price: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       validate: {
         notEmpty: {
           message: "Price must be not empty",
@@ -86,7 +86,7 @@ module.exports = (sequelize, DataTypes) => {
     prod_total_sold: DataTypes.INTEGER,
     prod_rating: DataTypes.INTEGER,
     prod_views: DataTypes.INTEGER,
-    userId: DataTypes.NUMBER
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'product',

@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       prod_price: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       prod_stock: {
         type: Sequelize.INTEGER
@@ -42,7 +42,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

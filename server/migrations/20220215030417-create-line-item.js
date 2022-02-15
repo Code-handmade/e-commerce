@@ -15,13 +15,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       productId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       shopId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       orderId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

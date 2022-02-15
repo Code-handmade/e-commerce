@@ -15,16 +15,16 @@ module.exports = {
         type: Sequelize.DATE
       },
       order_subtotal: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       order_discount: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       order_tax: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       order_total_due: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       order_total_qty: {
         type: Sequelize.INTEGER
@@ -42,7 +42,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       userId: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

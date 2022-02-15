@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
   line_item.init({
     lite_qty: DataTypes.INTEGER,
     lite_status: DataTypes.STRING,
-    productId: DataTypes.NUMBER,
-    shopId: DataTypes.NUMBER,
-    orderId: DataTypes.NUMBER
+    productId: DataTypes.INTEGER,
+    shopId: DataTypes.INTEGER,
+    orderId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'line_item',
