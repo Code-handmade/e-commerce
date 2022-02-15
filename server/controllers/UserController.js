@@ -13,6 +13,22 @@ class UserController{
         }
     }
 
+    static async getById(req, res){
+        try {
+            const id = +req.params.id;
+            let result = await user.findByPk(id);
+            result
+              ? res.status(200).json(result)
+              : res.status(404).json({
+                  message: `User not found!`,
+                });
+          } catch (e) {
+            res.status(500).json({
+              message: "Server Error",
+            });
+          }
+    }
+
     static async register(req, res){
         try {
             const {username, email, password, birth_date, gender, avatar, type} = req.body
@@ -56,6 +72,52 @@ class UserController{
             res.status(500).json(e)
         }
     }
+    // Menghapus User
+  static async remove(req, res) {
+    try {
+      const id = +req.params.id;
+      let result = await user.destroy({ where: { id } });
+
+      result === 1
+        ? res.status(200).json({
+            message: `Id ${id} deleted!`,
+          })
+        : res.status(400).json({
+            message: `Id ${id} not deleted!`,
+          });
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
+
+  //Edit atau Update User
+  static async update(req, res) {
+    try {
+      const id = +req.params.id;
+      const {
+        username, email, password, birth_date, gender, avatar, type
+      } = req.body;
+
+      let result = await user.update(
+        {
+            username, email, password, birth_date, gender, avatar, type
+        },
+        {
+          where: { id },
+        }
+      );
+
+      result[0] === 1
+        ? res.status(201).json({
+            message: `Id ${id} updated!`,
+          })
+        : res.status(400).json({
+            message: `Id ${id} not updated!`,
+          });
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
 
 }
 
