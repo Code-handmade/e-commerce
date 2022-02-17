@@ -9,7 +9,6 @@ class OrderController {
         order_subtotal,
         order_discount,
         order_tax,
-        order_total_due,
         order_total_qty,
         order_trax_number,
         order_city,
@@ -17,13 +16,14 @@ class OrderController {
         order_status,
       } = req.body;
       const { id } = req.userData;
+      const total = Number(order_subtotal) + Number(order_tax) - Number(order_discount)
       let result = await order.create({
         order_name,
         order_created_on,
         order_subtotal,
         order_discount,
         order_tax,
-        order_total_due,
+        order_total_due:total,
         order_total_qty,
         order_trax_number,
         order_city,
@@ -33,7 +33,7 @@ class OrderController {
       })
       res.status(201).json(result);
     } catch (error) {
-        req.status(500).json(error)
+        res.status(500).json(error)
     }
   }
 }
