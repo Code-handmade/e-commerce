@@ -21,14 +21,21 @@ class ProductImageController {
       let prim_file_size = req.file.size;
       let prim_file_type = req.file.mimetype;
 
-      let result = await products_image.create({
-        prim_file_name,
-        prim_file_size,
-        prim_file_type,
-        prim_primary: true,
-        productId,
-      });
-      res.status(201).json(result);
+      if(prim_file_size >= 2000000){
+          return res.status(400).json({
+              message: "Image should less be than 2 MB"
+          })
+      } else{
+        let result = await products_image.create({
+            prim_file_name,
+            prim_file_size,
+            prim_file_type,
+            prim_primary: true,
+            productId,
+          });
+          res.status(201).json(result);
+      }
+      
     } catch (e) {
       res.status(500).json(e);
     }
