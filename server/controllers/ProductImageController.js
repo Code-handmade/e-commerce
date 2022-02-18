@@ -3,13 +3,20 @@ const { products_image } = require("../models");
 class ProductImageController {
   static async add(req, res) {
         try {
-            const files = req.files
-            if(!files){
-                const error = new Error('Please choose file')
-                error.status(400).json(error)
-            }else{
-                res.json(files)
-            }
+            const productId = +req.params.id
+            let prim_file_name =  req.file.filename
+            let prim_file_size =  req.file.size
+            let prim_file_type =  req.file.mimetype
+            
+                let result = await products_image.create({
+                    prim_file_name,
+                    prim_file_size,
+                    prim_file_type,
+                    prim_primary:true,
+                    productId
+                })
+                res.status(201).json(result);
+            
         } catch (e) {
             res.status(500).json(e)
         }
