@@ -1,8 +1,18 @@
+
 const { product, user } = require("../models");
 
 class ProductController {
   // mengambil semua produk
   static async getProducts(req, res) {
+    try {
+      // const { id } = req.userData;
+      let products = await product.findAll({});
+      res.status(200).json(products);
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
+  static async getProductsByUserId(req, res) {
     try {
       const { id } = req.userData;
       let products = await product.findAll({
@@ -135,6 +145,29 @@ class ProductController {
           });
     } catch (e) {
       res.status(500).json(e);
+    }
+  }
+  // search product by name
+  static async search(req, res) {
+    try {
+      let searchName;
+      for (let key in req.query) {
+        searchName = key;
+      }
+      switch (searchName) {
+        case 'prod_name':
+          let products = await product.findAll({
+            where:{
+              prod_name:req.query[searchName]
+            }
+          })
+          res.status(200).json(products)
+          break;
+      }
+    } catch (error) {
+      res.status(500).json({
+        message: "Error to get Product",
+      });
     }
   }
 }
