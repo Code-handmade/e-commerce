@@ -1,6 +1,19 @@
 const { products_image } = require("../models");
 
 class ProductImageController {
+    static async getImages(req, res) {
+        try {
+            const id = +req.params.id;
+          let image = await products_image.findAll({
+            where: {
+              productId: id,
+            }
+          });
+          res.status(200).json(image);
+        } catch (e) {
+          res.status(500).json(e);
+        }
+      }
   static async add(req, res) {
     try {
       const productId = +req.params.id;
@@ -38,6 +51,24 @@ class ProductImageController {
         }
       );
       res.status(201).json(result);
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
+
+  // Menghapus Images
+  static async remove(req, res) {
+    try {
+      const id = +req.params.id;
+      let result = await products_image.destroy({ where: { id } });
+
+      result === 1
+        ? res.status(200).json({
+            message: `Id ${id} deleted!`,
+          })
+        : res.status(400).json({
+            message: `Id ${id} not deleted!`,
+          });
     } catch (e) {
       res.status(500).json(e);
     }
