@@ -57,9 +57,7 @@ class ProductController {
   static async getById(req, res) {
     try {
       const id = +req.params.id;
-      let result = await product.findByPk(id, {
-        include: [user],
-      });
+      let result = await product.findByPk(id);
       result
         ? res.status(200).json(result)
         : res.status(404).json({
