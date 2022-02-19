@@ -1,5 +1,7 @@
 
 const { product, user } = require("../models");
+const sequelize = require('sequelize')
+const Op = sequelize.Op
 
 class ProductController {
   // mengambil semua produk
@@ -25,6 +27,39 @@ class ProductController {
     } catch (e) {
       res.status(500).json(e);
     }
+  }
+  
+  static async search(req, res){
+    try {
+      let searchKey;
+      for (let key in req.query) {
+        searchKey = key
+      }
+      switch (searchKey) {
+          case 'prod_name':
+              let searchName = await product.findAll({
+                  where: {
+                    prod_name: req.query[searchKey]
+                  }
+              })
+
+              res.json(searchName)
+              break;
+          case 'prod_price':
+              let searchPrice = await product.findAll({
+                  where: {
+                      prod_price: req.query[searchKey]
+                  }
+              })
+
+              res.json(searchPrice)
+
+              break;
+      }
+  }
+  catch (e) {
+      res.json(e)
+  }
   }
   // Menambah Product
   static async add(req, res) {
@@ -148,28 +183,6 @@ class ProductController {
     }
   }
   // search product by name
-  static async search(req, res) {
-    try {
-      let searchName;
-      for (let key in req.query) {
-        searchName = key;
-      }
-      switch (searchName) {
-        case 'prod_name':
-          let products = await product.findAll({
-            where:{
-              prod_name:req.query[searchName]
-            }
-          })
-          res.status(200).json(products)
-          break;
-      }
-    } catch (error) {
-      res.status(500).json({
-        message: "Error to get Product",
-      });
-    }
-  }
 }
 
 module.exports = ProductController;
