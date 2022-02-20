@@ -11,7 +11,7 @@ class UserController {
       res.status(500).json(e);
     }
   }
-
+// get user by Id
   static async getById(req, res) {
     try {
       const id = +req.params.id;
@@ -27,11 +27,12 @@ class UserController {
       });
     }
   }
-
+// Register
   static async register(req, res) {
     try {
-      const { username, email, password, birth_date, gender, avatar, type } =
+      const { username, email, password, birth_date, gender, type } =
         req.body;
+        const avatar = req.file.filename
 
       let findEmail = await user.findOne({
         where: { email },
@@ -58,7 +59,7 @@ class UserController {
       res.status(500).json();
     }
   }
-
+//Login
   static async login(req, res) {
     try {
       const { email, password } = req.body;
