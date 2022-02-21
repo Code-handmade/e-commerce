@@ -1,7 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import "./LoginAdmin.css";
-function LoginAdmin() {
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "axios";
+
+function LoginAdmin({ userLogin, getToken }) {
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+  });
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    loginAxios();
+  };
+
+  const loginAxios = async () => {
+    try {
+      const result = await axios({
+        method: "POST",
+        url: "http://localhost:3000/users/auth/login",
+        data: state,
+      });
+      const access_token = result.data["access_token"];
+      const roleUser = result.data["roleUser"];
+
+      getToken(access_token, roleUser);
+      userLogin(true);
+    } catch (err) {
+      Swal.fire("Role is not admin");
+    }
+  };
+
   return (
     <>
       <div className="form my-5 mx-5 ">
@@ -30,6 +60,11 @@ function LoginAdmin() {
                         placeholder="Email"
                         id="email"
                         className="form-control "
+                        name="email"
+                        onChange={(event) => {
+                          setState({ email: event.target.value });
+                        }}
+                        required
                       />
                     </div>
                   </div>
@@ -43,19 +78,30 @@ function LoginAdmin() {
                         placeholder="**********"
                         id="password"
                         className="form-control "
+                        name="password"
+                        required
+                        onChange={(event) => {
+                          setState({ ...state, password: event.target.value });
+                        }}
                       />
                     </div>
                   </div>
                   <div className="from-row">
                     <div className="col-lg-7">
-                      <button type="submit" className="btn2-admin  my-2">
+                      <button
+                        onClick={(event) => {
+                          submitHandler(event);
+                        }}
+                        type="submit"
+                        className="btn2-admin  my-2"
+                      >
                         Login
                       </button>
                     </div>
                   </div>
                   <p className="my-2">
                     Dont't have an account <br />
-                    <Link className="btn2-login" to="#">
+                    <Link className="btn2-login" to="/registerAdmin">
                       Register here
                     </Link>
                   </p>

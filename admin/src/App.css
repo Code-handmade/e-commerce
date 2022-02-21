@@ -24,3 +24,14 @@ body {
 .link a:hover .bi-instagram {
   color: #c13584;
 }
+
+#footer {
+  flex-shrink: none;
+}
+
+/* register admin */
+.signUp-img {
+  height: 2000px;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}

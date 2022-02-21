@@ -29,6 +29,7 @@ function Login() {
                           placeholder="Email"
                           id="email"
                           className="form-control "
+                          required
                         />
                       </div>
                     </div>
@@ -42,6 +43,7 @@ function Login() {
                           placeholder="**********"
                           id="password"
                           className="form-control "
+                          required
                         />
                       </div>
                     </div>
@@ -54,7 +56,7 @@ function Login() {
                     </div>
                     <p className="my-2">
                       Dont't have an account <br />
-                      <Link className="btn2-login" to="#">
+                      <Link className="btn2-login" to="/register">
                         Register here
                       </Link>
                     </p>

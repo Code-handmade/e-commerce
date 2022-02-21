@@ -1,7 +1,8 @@
+import "../login/LoginAdmin.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Login.css";
-function Register() {
+
+function RegisterAdmin() {
   const [image, setImage] = useState("");
   const [saveImage, setSaveImage] = useState(null);
 
@@ -21,14 +22,16 @@ function Register() {
               <div className="row rounded-2">
                 <div className="col-lg-7 bg-img-side-left ">
                   <img
-                    src="/assets/register.jpg"
+                    src="/assets/registerAdmin.jpg"
                     className="img-fluid signUp-img me-2"
                     alt="hero"
                     // width="100%"
                   />
                 </div>
                 <div className="col-lg-5 px-5 pt-5">
-                  <h3 className="fw-bolder py-2 text-warning"> Sign Up</h3>
+                  <h3 className="fw-bolder py-2" style={{ color: "#09a28b" }}>
+                    Sign Up
+                  </h3>
                   <form>
                     <div className="from-row">
                       <div className="col-lg-9  ">
@@ -117,7 +120,6 @@ function Register() {
                           required
                           name="type"
                         >
-                          <option value="user">User</option>
                           <option value="admin">Admin</option>
                         </select>
                       </div>
@@ -137,14 +139,14 @@ function Register() {
                             onChange={uploadImageHandler}
                             accept="image/*"
                             required
-                            type="avatar"
+                            name="avatar"
                           />
                         </div>
                       </div>
                     </div>
                     <div className="from-row">
                       <div className="col-lg-9">
-                        <button type="submit" className="btn2  my-2">
+                        <button type="submit" className="btn2-admin  my-2">
                           Register
                         </button>
                       </div>
@@ -166,4 +168,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterAdmin;

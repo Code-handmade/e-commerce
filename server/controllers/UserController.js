@@ -67,15 +67,19 @@ class UserController {
           email,
         },
       });
+
       if (result) {
+        console.log(`ini result ${result}`);
         if (decryptPwd(password, result.password)) {
           let token = tokenGenerator(result);
+          console.log(token);
           // test token hariyono
           let verify = tokenVerifier(token);
+          const roleUser = verify.type;
           // =================
           res.status(200).json({
             access_token: token,
-            verify,
+            roleUser,
           });
         } else {
           res.status(400).json({

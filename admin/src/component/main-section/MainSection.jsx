@@ -14,12 +14,13 @@ import TableUser from "../tableUser/TableUser";
 import AddUser from "../tableUser/AddUser";
 import UpdateUser from "../tableUser/UpdateUser";
 
-function MainSection() {
+function MainSection({ login, userLogin }) {
   return (
     <>
-      <Navbar />
+      <Navbar login={login} userLogin={userLogin} />
       <Switch>
         {/* product */}
+
         <Route exact path="/">
           <TableProduct />
         </Route>
@@ -41,7 +42,7 @@ function MainSection() {
           <UpdateUser />
         </Route>
       </Switch>
-      <Footer />
+      <Footer id="footer" />
     </>
   );
 }

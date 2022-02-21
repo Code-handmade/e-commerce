@@ -10,3 +10,9 @@
   bottom: 0;
   width: 100%;
 }
+/* register admin */
+.signUp-img {
+  height: 2000px;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}

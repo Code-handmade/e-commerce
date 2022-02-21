@@ -1,8 +1,30 @@
 import React from "react";
 import "../../App.css";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
-function Navbar() {
+function Navbar({ login, userLogin }) {
+  const loginHandler = (e) => {
+    e.preventDefault();
+    userLogin(!login);
+  };
+  const logoutHandler = (event) => {
+    event.preventDefault();
+    Swal.fire({
+      title: "Are you sure ?",
+      text: "Are you sure to log out?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        userLogin(false);
+      }
+    });
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark text-uppercase">
@@ -40,9 +62,21 @@ function Navbar() {
               </li>
 
               <li className="nav-item">
-                <Link to="" className="nav-link">
-                  Logout
-                </Link>
+                {login ? (
+                  <button
+                    onClick={(event) => logoutHandler(event)}
+                    className="btn btn-dark nav-link"
+                  >
+                    LOGOUT
+                  </button>
+                ) : (
+                  <Link
+                    onClick={(event) => loginHandler(event)}
+                    className="nav-link"
+                  >
+                    LOGIN
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

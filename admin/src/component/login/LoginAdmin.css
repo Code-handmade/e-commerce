@@ -50,3 +50,10 @@
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
 }
+
+.uplod-img {
+  max-width: 50%;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  height: auto;
+}

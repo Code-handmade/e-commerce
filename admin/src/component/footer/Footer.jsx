@@ -2,7 +2,7 @@ import React from "react";
 import "../../App.css";
 function Footer() {
   return (
-    <div className="mt-auto">
+    <div className="mt-auto ">
       <div className="container-fluid">
         <div className="row bg-dark text-white">
           <div className="col-md-6 my-2">
