@@ -1,7 +1,6 @@
-
 const { product, user } = require("../models");
-const sequelize = require('sequelize')
-const Op = sequelize.Op
+const sequelize = require("sequelize");
+const Op = sequelize.Op;
 
 class ProductController {
   // mengambil semua produk
@@ -28,38 +27,37 @@ class ProductController {
       res.status(500).json(e);
     }
   }
-  
-  static async search(req, res){
+
+  static async search(req, res) {
     try {
       let searchKey;
       for (let key in req.query) {
-        searchKey = key
+        searchKey = key;
       }
       switch (searchKey) {
-          case 'prod_name':
-              let searchName = await product.findAll({
-                  where: {
-                    prod_name: req.query[searchKey]
-                  }
-              })
+        case "prod_name":
+          let searchName = await product.findAll({
+            where: {
+              prod_name: req.query[searchKey],
+            },
+          });
 
-              res.json(searchName)
-              break;
-          case 'prod_price':
-              let searchPrice = await product.findAll({
-                  where: {
-                      prod_price: req.query[searchKey]
-                  }
-              })
+          res.json(searchName);
+          break;
+        case "prod_price":
+          let searchPrice = await product.findAll({
+            where: {
+              prod_price: req.query[searchKey],
+            },
+          });
 
-              res.json(searchPrice)
+          res.json(searchPrice);
 
-              break;
+          break;
       }
-  }
-  catch (e) {
-      res.json(e)
-  }
+    } catch (e) {
+      res.json(e);
+    }
   }
   // Menambah Product
   static async add(req, res) {
@@ -183,6 +181,62 @@ class ProductController {
     }
   }
   // search product by name
+
+  // hariyono test
+  static async addTest(req, res) {
+    try {
+      const {
+        prod_name,
+        prod_desc,
+        prod_price,
+        prod_stock,
+        prod_expire,
+        prod_weight,
+        prod_category,
+        prod_brand,
+        prod_total_sold,
+        prod_rating,
+        prod_views,
+        userId,
+      } = req.body;
+
+      // const { id } = req.userData;
+      let result = await product.create({
+        prod_name,
+        prod_desc,
+        prod_price,
+        prod_stock,
+        prod_expire,
+        prod_weight,
+        prod_category,
+        prod_brand,
+        prod_total_sold,
+        prod_rating,
+        prod_views,
+        userId,
+      });
+      res.status(201).json(result);
+    } catch (e) {
+      res.status(500).json(e);
+      console.log(e);
+    }
+  }
+
+  static async getProductByIdPublic(req, res) {
+    try {
+      const id = +req.params.id;
+      let result = await product.findByPk(id);
+      result
+        ? res.status(200).json(result)
+        : res.status(404).json({
+            message: `Product not found!`,
+          });
+    } catch (e) {
+      res.status(500).json({
+        message: "Server Error",
+      });
+    }
+  }
 }
 
 module.exports = ProductController;

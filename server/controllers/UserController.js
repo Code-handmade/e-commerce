@@ -1,6 +1,6 @@
 const { user } = require("../models");
 const { decryptPwd } = require("../helpers/bcrypt");
-const { tokenGenerator } = require("../helpers/jwt");
+const { tokenGenerator, tokenVerifier } = require("../helpers/jwt");
 
 class UserController {
   static async getUserAll(req, res) {
@@ -70,9 +70,12 @@ class UserController {
       if (result) {
         if (decryptPwd(password, result.password)) {
           let token = tokenGenerator(result);
-
+          // test token hariyono
+          let verify = tokenVerifier(token);
+          // =================
           res.status(200).json({
             access_token: token,
+            verify,
           });
         } else {
           res.status(400).json({
@@ -86,6 +89,7 @@ class UserController {
       }
     } catch (e) {
       res.status(500).json(e);
+      console.log(e);
     }
   }
   // Menghapus User
