@@ -1,32 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
 function Products() {
-  // const [data, setData] = useState([]);
-  // const [filter, setFilter] = useState([data]);
-  // const [loading, setLoading] = useState(false);
-  // let componentMounted = true;
-
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     setLoading(true);
-  //     const response = await fetch("https://fakestoreapi.com/products");
-  //     if (componentMounted) {
-  //       setData(await response.clone().json());
-  //       setFilter(await response.json());
-  //       setLoading(false);
-  //       console.log(filter);
-  //     }
-  //     console.log(response);
-  //     return () => {
-  //       componentMounted = false;
-  //     };
-  //   };
-  //   getProducts();
-  // }, []);
-
-  const [product, setProduct] = useState([]);
-  const [filter, setFilter] = useState([product]);
+  const [Product, setProduct] = useState([]);
+  const [filter, setFilter] = useState([Product]);
   const [loading, setLoading] = useState(false);
   let componentMounted = true;
 
@@ -34,7 +12,7 @@ function Products() {
     try {
       const result = await axios({
         method: "GET",
-        url: "http://localhost:3000/products/all",
+        url: "http://localhost:3000/images",
       });
       if (componentMounted) {
         setProduct(result.data);
@@ -59,7 +37,9 @@ function Products() {
   };
 
   const filterProduct = (cat) => {
-    const updatedList = product.filter((item) => item.prod_category === cat);
+    const updatedList = Product.filter(
+      (item) => item.product.prod_category === cat
+    );
     setFilter(updatedList);
     console.log(updatedList);
   };
@@ -71,7 +51,7 @@ function Products() {
           <div
             className="btn btn-outline-dark me-2"
             onClick={() => {
-              setFilter(product);
+              setFilter(Product);
             }}
           >
             All
@@ -109,29 +89,29 @@ function Products() {
             Electronic
           </div>
         </div>
-        {filter.map((product) => {
+        {filter.map((item) => {
           return (
             <div className="col-md-3 mb-4">
-              <div class="card h-100 text-center p-4" key={product.id}>
-                {/* TODO integrasi multer to img */}
-                {/* <img
-                  src={product.image}
-                  class="card-img-top"
-                  alt={"product.title"}
+              <div class="card h-100 text-center p-4" key={item.id}>
+                <img
+                  src={item.prim_file_name}
+                  className="card-img-top"
+                  alt={item.prim_file_name}
                   height="150px"
-                /> */}
-                <div class="card-body ">
-                  {/* <h5 class="card-title mb-0">
-                    {product.title.substring(0, 12)}
-                  </h5> */}
-                  <h5 class="card-title mb-0">{product.prod_name}</h5>
-                  <p class="card-text fw-bolder">Rp {product.prod_category}</p>
-                  <p class="card-text fw-bolder">Rp {product.prod_price}</p>
+                />
+                <div className="card-body ">
+                  <h5 className="card-title mb-0">{item.product.prod_name}</h5>
+                  <p className="card-text fw-bolder">
+                    Rp {item.product.prod_category}
+                  </p>
+                  <p className="card-text fw-bolder">
+                    Rp {item.product.prod_price}
+                  </p>
                   <Link
-                    to={`/products/${product.id}`}
-                    class="btn btn-outline-primary"
+                    to={`/products/${item.product.id}`}
+                    className="btn btn-outline-primary"
                   >
-                    <i class="fa-solid fa-alicorn"></i>
+                    <i className="fa-solid fa-alicorn"></i>
                     Order Now
                   </Link>
                 </div>
@@ -153,6 +133,8 @@ function Products() {
         {loading ? <Loading /> : <ShowProducts />}
       </div>
     </div>
+    // <>{JSON.stringify(filter)}</>
+    // <ShowProducts />
   );
 }
 
