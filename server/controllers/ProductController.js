@@ -1,18 +1,20 @@
 const { product, user } = require("../models");
-const sequelize = require("sequelize");
-const Op = sequelize.Op;
 
 class ProductController {
   // mengambil semua produk
   static async getProducts(req, res) {
     try {
       // const { id } = req.userData;
-      let products = await product.findAll({});
+      let products = await product.findAll({
+        order: [["id", "ASC"]],
+        include: [user],
+      });
       res.status(200).json(products);
     } catch (e) {
       res.status(500).json(e);
     }
   }
+
   static async getProductsByUserId(req, res) {
     try {
       const { id } = req.userData;

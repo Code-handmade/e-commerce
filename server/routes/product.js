@@ -4,7 +4,7 @@ const { authentication, authorization } = require("../middlewares/auth");
 
 // user public hari
 productRoute.get("/all", ProductController.getProducts);
-productRoute.post("/add", ProductController.addTest);
+// productRoute.post("/add", ProductController.addTest);
 productRoute.get("/:id", ProductController.getProductByIdPublic);
 
 // fahrul

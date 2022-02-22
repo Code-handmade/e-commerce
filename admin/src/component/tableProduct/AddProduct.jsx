@@ -1,8 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function AddProduct() {
+  const [addProduct, setProduct] = useState({
+    prod_name: "",
+    prod_desc: "",
+    prod_price: "",
+    prod_stock: "",
+    prod_expire: "",
+    prod_weight: "",
+    prod_category: "",
+    prod_brand: "",
+  });
+
+  const addProductHandler = async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      console.log(token);
+      const result = await axios({
+        method: "post",
+        url: "http://localhost:3000/products/add",
+        headers: {
+          access_token: token,
+        },
+        data: addProduct,
+      });
+      console.log(result.data);
+      console.log(token);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    addProductHandler();
+    // kurang add image product
+    console.log(addProduct);
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <div className="container">
@@ -27,8 +65,14 @@ function AddProduct() {
                   id="nama"
                   placeholder="Masukkan Nama"
                   name="prod_name"
-                  autocomplete="off"
+                  autoComplete="off"
                   required
+                  onChange={(event) => {
+                    setProduct({
+                      ...addProduct,
+                      prod_name: event.target.value,
+                    });
+                  }}
                 />
               </div>
               <div className="mb-3">
@@ -41,8 +85,14 @@ function AddProduct() {
                   id="harga"
                   placeholder="Masukkan Harga Produk"
                   name="prod_price"
-                  autocomplete="off"
+                  autoComplete="off"
                   required
+                  onChange={(event) => {
+                    setProduct({
+                      ...addProduct,
+                      prod_price: event.target.value,
+                    });
+                  }}
                 />
               </div>
               <div className="mb-3">
@@ -55,8 +105,14 @@ function AddProduct() {
                   id="stok"
                   placeholder="Masukkan Stok Produk"
                   name="prod_stock"
-                  autocomplete="off"
+                  autoComplete="off"
                   required
+                  onChange={(event) => {
+                    setProduct({
+                      ...addProduct,
+                      prod_stock: event.target.value,
+                    });
+                  }}
                 />
               </div>
               <div className="mb-3">
@@ -70,6 +126,12 @@ function AddProduct() {
                   name="prod_expire"
                   max="01-01-2006"
                   required
+                  onChange={(event) => {
+                    setProduct({
+                      ...addProduct,
+                      prod_expire: event.target.value,
+                    });
+                  }}
                 />
               </div>
 
@@ -83,8 +145,14 @@ function AddProduct() {
                   id="berat"
                   placeholder="Masukkan Berat Produk"
                   name="prod_weight"
-                  autocomplete="off"
+                  autoComplete="off"
                   required
+                  onChange={(event) => {
+                    setProduct({
+                      ...addProduct,
+                      prod_weight: event.target.value,
+                    });
+                  }}
                 />
               </div>
 
@@ -96,7 +164,13 @@ function AddProduct() {
                     type="radio"
                     name="prod_category"
                     id="makanan"
-                    value="makanan"
+                    // value="makanan"
+                    onChange={(event) => {
+                      setProduct({
+                        ...addProduct,
+                        prod_category: event.target.value,
+                      });
+                    }}
                   />
                   <label className="form-check-label" for="makanan">
                     Makanan
@@ -108,7 +182,13 @@ function AddProduct() {
                     type="radio"
                     name="prod_category"
                     id="furniture"
-                    value="furniture"
+                    // value="furniture"
+                    onChange={(event) => {
+                      setProduct({
+                        ...addProduct,
+                        prod_category: event.target.value,
+                      });
+                    }}
                   />
                   <label className="form-check-label" for="furniture">
                     Furnitur
@@ -120,7 +200,13 @@ function AddProduct() {
                     type="radio"
                     name="prod_category"
                     id="pakaian"
-                    value="pakaian"
+                    // value="pakaian"
+                    onChange={(event) => {
+                      setProduct({
+                        ...addProduct,
+                        prod_category: event.target.value,
+                      });
+                    }}
                   />
                   <label className="form-check-label" for="pakaian">
                     Pakaian
@@ -132,7 +218,13 @@ function AddProduct() {
                     type="radio"
                     name="prod_category"
                     id="elektronik"
-                    value="elektronik"
+                    // value="elektronik"
+                    onChange={(event) => {
+                      setProduct({
+                        ...addProduct,
+                        prod_category: event.target.value,
+                      });
+                    }}
                   />
                   <label className="form-check-label" for="elektronik">
                     Elektronik
@@ -152,8 +244,28 @@ function AddProduct() {
                     --------------------------------------------Pilih
                     Brand--------------------------------------------
                   </option>
-                  <option value="lokal jaya">Lokal Jaya</option>
-                  <option value="Idola">Idola</option>
+                  <option
+                    onChange={(event) => {
+                      setProduct({
+                        ...addProduct,
+                        prod_brand: event.target.value,
+                      });
+                    }}
+                    // value="lokal jaya"
+                  >
+                    Lokal Jaya
+                  </option>
+                  <option
+                    onChange={(event) => {
+                      setProduct({
+                        ...addProduct,
+                        prod_brand: event.target.value,
+                      });
+                    }}
+                    // value="Idola"
+                  >
+                    Idola
+                  </option>
                 </select>
               </div>
               <div className="mb-3">
@@ -177,15 +289,28 @@ function AddProduct() {
                   rows="5"
                   name="prod_desc"
                   placeholder="Masukkan Alamat"
-                  autocomplete="off"
+                  autoComplete="off"
                   required
+                  onChange={(event) => {
+                    setProduct({
+                      ...addProduct,
+                      prod_brand: event.target.value,
+                    });
+                  }}
                 ></textarea>
               </div>
               <hr />
               <Link to="/" className="btn btn-secondary me-3 ">
                 Kembali
               </Link>
-              <button type="submit" className="btn btn-success" name="simpan">
+              <button
+                onClick={(event) => {
+                  submitHandler(event);
+                }}
+                type="submit"
+                className="btn btn-success"
+                name="simpan"
+              >
                 Simpan
               </button>
             </form>

@@ -99,12 +99,6 @@ function LoginAdmin({ userLogin, getToken }) {
                       </button>
                     </div>
                   </div>
-                  <p className="my-2">
-                    Dont't have an account <br />
-                    <Link className="btn2-login" to="/registerAdmin">
-                      Register here
-                    </Link>
-                  </p>
                 </form>
               </div>
             </div>
