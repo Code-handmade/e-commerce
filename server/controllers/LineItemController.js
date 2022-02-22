@@ -1,4 +1,4 @@
-const { line_item } = require("../models");
+const { line_item, order, product, shopping_cart } = require("../models");
 
 class LineItemController {
   static async getLineItem(req, res) {

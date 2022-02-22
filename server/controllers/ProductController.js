@@ -1,7 +1,6 @@
 
 const { product, user } = require("../models");
-const sequelize = require('sequelize')
-const Op = sequelize.Op
+
 
 class ProductController {
   // mengambil semua produk

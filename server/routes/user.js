@@ -5,7 +5,7 @@ const { store } = require('../middlewares/multer')
 
 
 userRoute.get('/all', UserController.getUserAll)
-userRoute.post('/auth/register',store, UserController.register)
+userRoute.post('/auth/register', UserController.register)
 userRoute.post('/auth/login', UserController.login)
 userRoute.get('/:id', authentication, UserController.getById)
 userRoute.put('/edit/:id', authentication, UserController.update)
