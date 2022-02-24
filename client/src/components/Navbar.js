@@ -1,8 +1,9 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function Navbar({ login, userLogin }) {
+  const history = useHistory()
   const loginHandler = (e) => {
     e.preventDefault();
     userLogin(true);
@@ -22,6 +23,7 @@ function Navbar({ login, userLogin }) {
       if (result.isConfirmed) {
         localStorage.clear();
         userLogin(false);
+        history.push('/login')
       }
     });
   };

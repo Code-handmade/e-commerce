@@ -1,19 +1,20 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./Login.css";
 import axios from 'axios'
 import Swal from "sweetalert2";
-import { API_URL } from "../utils/constants";
+import { API_URL } from "../../utils/constants";
 
 
 function Login({login, userLogin, getToken}) {
+  const history = useHistory();
+  
   const [state, setState] = useState({
     email:"",
     password:""
   })
 
-  const submitHandler = e =>{
-    
+  const submitHandler = e =>{ 
     e.preventDefault()
     loginAxios()
   }
@@ -26,8 +27,11 @@ function Login({login, userLogin, getToken}) {
         data: state
       })
       const access_token = result.data["access_token"]
+      const roleUser = result.data["roleUser"]
       userLogin(true)
-      getToken(access_token)
+      getToken(access_token, roleUser)
+
+      history.push('/');
     } catch (e) {
       Swal.fire("ERROR",`${e}`, "error")
     }
@@ -69,7 +73,7 @@ function Login({login, userLogin, getToken}) {
                           Password
                         </label>
                         <input
-                          type="text"
+                          type="password"
                           placeholder="**********"
                           id="password"
                           className="form-control"

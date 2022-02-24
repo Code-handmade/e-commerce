@@ -4,7 +4,7 @@ const { authentication, authorization } = require('../middlewares/auth')
 const { store } = require('../middlewares/multer')
 
 
-productImageRoute.get('/:id', authentication, ProductImageController.getImages)
+productImageRoute.get('/',  ProductImageController.getImages)
 // productImageRoute.get('/:id', authentication, ProductImageController.getById)
 productImageRoute.post('/add/:id', store, ProductImageController.add)
 productImageRoute.put('/edit/:id', authentication, authorization, ProductImageController.update)

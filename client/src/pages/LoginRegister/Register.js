@@ -1,11 +1,12 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { API_URL } from "../utils/constants";
+import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 import "./Login.css";
 import Swal from "sweetalert2";
+import { API_URL } from "../../utils/constants";
 
 function Register() {
+  const history = useHistory();
   // const [image, setImage] = useState("");
   // const [saveImage, setSaveImage] = useState(null);
   const [form, setForm] = useState({
@@ -32,13 +33,10 @@ function Register() {
         data:form
       })
       console.log(result.data)
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Your account succes to register',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      Swal.fire(`Selamat,
+      Anda berhasil mendaftar Akun, selamat berbelanja',
+      'success'`)
+      history.push('/login');
     } catch (e) {
       console.log(e);
     }

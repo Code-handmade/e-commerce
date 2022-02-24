@@ -1,6 +1,6 @@
 const { user } = require("../models");
 const { decryptPwd } = require("../helpers/bcrypt");
-const { tokenGenerator } = require("../helpers/jwt");
+const { tokenGenerator, tokenVerifier } = require("../helpers/jwt");
 
 class UserController {
   static async getUserAll(req, res) {
@@ -71,9 +71,13 @@ class UserController {
       if (result) {
         if (decryptPwd(password, result.password)) {
           let token = tokenGenerator(result);
+          
+          let verify = tokenVerifier(token);
+          const roleUser = verify.type;
 
           res.status(200).json({
             access_token: token,
+            roleUser
           });
         } else {
           res.status(400).json({
