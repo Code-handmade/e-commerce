@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function HomeAdmin({login}) {
   return (
-    <div>
+    <div className="container">
       <h2>Home Admin</h2>
     </div>
     // <div className="d-flex flex-column min-vh-100">

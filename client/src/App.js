@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Login, Register, HomeUser, HomeAdmin, Cart } from "./pages";
-import { Navbar } from "./components";
+import { Annoncement, Navbar } from "./components";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -26,6 +26,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <Annoncement/>
       <Navbar login={login} userLogin={userLogin} />
       {login ? (
         <div className="container-fluid">
