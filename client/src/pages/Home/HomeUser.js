@@ -5,8 +5,8 @@ import { API_URL } from "../../utils/constants";
 import { CardProduct } from "../../components";
 
 function HomeUser() {
-  const [Product, setProduct] = useState([]);
-  const [filter, setFilter] = useState([Product]);
+  const [product, setProduct] = useState([]);
+  const [filter, setFilter] = useState([product]);
   const [loading, setLoading] = useState(false);
   let componentMounted = true;
 
@@ -39,7 +39,7 @@ function HomeUser() {
   };
 
   const filterProduct = (cat) => {
-    const updatedList = Product.filter(
+    const updatedList = product.filter(
       (item) => item.prod_category === cat
     );
     setFilter(updatedList);
@@ -53,7 +53,7 @@ function HomeUser() {
           <div
             className="btn btn-outline-dark me-2"
             onClick={() => {
-              setFilter(Product);
+              setFilter(product);
             }}
           >
             All

@@ -2,7 +2,7 @@ const productRoute = require('express').Router()
 const ProductController = require('../controllers/ProductController')
 const { authentication, authorization } = require('../middlewares/auth')
 
-productRoute.get('/', authentication, ProductController.getProductsByUserId)
+productRoute.get('/', ProductController.getProductsByUserId)
 productRoute.get('/search', ProductController.search)
 productRoute.get('/all', ProductController.getProducts)
 productRoute.get('/:id', authentication, ProductController.getById)
