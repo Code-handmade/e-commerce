@@ -3,28 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { API_URL } from "../utils/constants";
 function Product() {
-  // const [data, setData] = useState([]);
-  // const [filter, setFilter] = useState([data]);
-  // const [loading, setLoading] = useState(false);
-  // let componentMounted = true;
-
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     setLoading(true);
-  //     const response = await fetch("https://fakestoreapi.com/products");
-  //     if (componentMounted) {
-  //       setData(await response.clone().json());
-  //       setFilter(await response.json());
-  //       setLoading(false);
-  //       console.log(filter);
-  //     }
-  //     console.log(response);
-  //     return () => {
-  //       componentMounted = false;
-  //     };
-  //   };
-  //   getProducts();
-  // }, []);
+  
 
   const [product, setProduct] = useState([]);
   const [filter, setFilter] = useState([product]);

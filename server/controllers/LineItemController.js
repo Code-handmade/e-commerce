@@ -8,10 +8,27 @@ class LineItemController {
     }
   }
   static async add(req, res) {
-    try {
-    } catch (e) {
-      res.status(500).json(e);
-    }
+  
+      try {
+        const {
+          lite_qty,
+          lite_status,
+          productId,
+          shopId,
+          orderId
+        } = req.body;
+  
+        let result = await line_item.create({
+          lite_qty,
+          lite_status,
+          productId,
+          shopId,
+          orderId
+        });
+        res.status(201).json(result);
+      } catch (e) {
+        res.status(500).json(e);
+      }
   }
 }
 

@@ -7,6 +7,7 @@ import { Badge } from "@material-ui/core";
 
 const Container = styled.div`
   height: 60px;
+  border-bottom: 2px solid teal;
 `;
 
 const Wrapper = styled.div`
@@ -95,10 +96,10 @@ function Navbar({ login, userLogin }) {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Handmade</Logo>
+          <Logo>Handmade Store</Logo>
         </Center>
         <Right>
-          <MenuItem>Register</MenuItem>
+          
           <MenuItem>
           {login ? (
             <button

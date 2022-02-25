@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Login, Register, HomeUser, HomeAdmin, Cart } from "./pages";
+import { Login, Register, HomeUser, HomeAdmin, Cart, Details } from "./pages";
 import { Annoncement, Navbar } from "./components";
 
 function App() {
@@ -37,6 +37,9 @@ function App() {
               ) : (
                 <HomeUser login={login} />
               )}
+            </Route>
+            <Route exact path ="/products/:id">
+              <Details/>
             </Route>
             <Route exact path="/cart">
               <Cart />
