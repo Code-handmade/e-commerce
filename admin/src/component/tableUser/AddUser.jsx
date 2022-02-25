@@ -1,8 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../App.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 function AddUser() {
+  const history = useHistory();
+
+  const [addUser, setAddUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    birth_date: null,
+    gender: "",
+    avatar:
+      "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png",
+    type: "",
+  });
+  const addUserHandler = async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      console.log("masuk addUserHandler");
+      const result = await axios({
+        method: "POST",
+        url: "http://localhost:3000/users/auth/register",
+        headers: {
+          access_token: token,
+        },
+        data: addUser,
+      });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `User ${addUser.username} berhasil di tambahkan`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      history.push("/user");
+      console.log(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    addUserHandler();
+
+    // kurang add image product
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <div className="container">
@@ -29,6 +76,9 @@ function AddUser() {
                   name="username"
                   autocomplete="off"
                   required
+                  onChange={(e) =>
+                    setAddUser({ ...addUser, username: e.target.value })
+                  }
                 />
               </div>
               <div className="mb-3">
@@ -43,6 +93,9 @@ function AddUser() {
                   name="email"
                   autocomplete="off"
                   required
+                  onChange={(e) =>
+                    setAddUser({ ...addUser, email: e.target.value })
+                  }
                 />
               </div>
               <div className="mb-3">
@@ -57,6 +110,9 @@ function AddUser() {
                   name="password"
                   autocomplete="off"
                   required
+                  onChange={(e) =>
+                    setAddUser({ ...addUser, password: e.target.value })
+                  }
                 />
               </div>
               <div className="mb-3">
@@ -70,50 +126,53 @@ function AddUser() {
                   name="birth_date"
                   max="01-01-2006"
                   required
+                  onChange={(e) =>
+                    setAddUser({ ...addUser, birth_date: e.target.value })
+                  }
                 />
               </div>
-
-              <div className="mb-3">
-                <label>Jenis Kelamin</label>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="laki"
-                    value="laki-laki"
-                  />
-                  <label className="form-check-label" for="laki">
-                    Laki-laki
+              <div className="from-row">
+                <div className="col-lg-9 my-1 ">
+                  <label className="text-black" htmlFor="gender">
+                    Gender
                   </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
+                  <select
+                    className="form-select"
+                    aria-label="Default select example"
+                    required
                     name="gender"
-                    id="perempuan"
-                    value="perempuan"
-                  />
-                  <label className="form-check-label" for="perempuan">
-                    Perempuan
-                  </label>
+                    onChange={(e) =>
+                      setAddUser({ ...addUser, gender: e.target.value })
+                    }
+                  >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
                 </div>
               </div>
-              <div className="mb-3">
-                <label for="role" className="form-label">
-                  Role
-                </label>
-                <select className="form-select w-100" id="role" name="type">
-                  <option disabled selected value>
-                    --------------------------------------------Pilih
-                    Role--------------------------------------------
-                  </option>
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
-                </select>
+              <div className="from-row">
+                <div className="col-lg-9 my-1 ">
+                  <label className="text-black" htmlFor="gender">
+                    Role
+                  </label>
+                  <select
+                    className="form-select"
+                    aria-label="Default select example"
+                    required
+                    name="type"
+                    onChange={(event) => {
+                      setAddUser({
+                        ...addUser,
+                        type: event.target.value,
+                      });
+                    }}
+                  >
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
               </div>
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label for="gambar" className="form-label">
                   Gambar User
                 </label>
@@ -123,13 +182,20 @@ function AddUser() {
                   name="avatar"
                   type="file"
                 />
-              </div>
+              </div> */}
 
               <hr />
               <Link to="/user" className="btn btn-secondary me-3">
                 Kembali
               </Link>
-              <button type="submit" className="btn btn-success" name="simpan">
+              <button
+                onClick={(event) => {
+                  submitHandler(event);
+                }}
+                type="submit"
+                className="btn btn-success"
+                name="simpan"
+              >
                 Simpan
               </button>
             </form>

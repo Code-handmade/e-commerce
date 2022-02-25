@@ -1,9 +1,10 @@
 import "../../App.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import Swal from "sweetalert2";
 function TableUser() {
+  const history = useHistory();
   const [user, setUser] = useState([]);
 
   const getUser = async () => {
@@ -16,6 +17,41 @@ function TableUser() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const deleteUser = (id) => {
+    console.log("delete user");
+    axios({
+      method: "delete",
+      url: `http://localhost:3000/users/delete/${id}`,
+      params: {
+        id,
+      },
+    })
+      .then((result) => {
+        getUser();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteUserHandler = (id, username) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `Are you sure delete ${username}??`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUser(id);
+        history.push("/user");
+      }
+    });
+    getUser();
   };
 
   useEffect(() => {
@@ -68,7 +104,7 @@ function TableUser() {
                 ) : (
                   user.map((pengguna) => {
                     return (
-                      <tr>
+                      <tr key={pengguna.id}>
                         <td>{number++}</td>
                         <td>{pengguna.username}</td>
                         <td>{pengguna.email}</td>
@@ -81,7 +117,6 @@ function TableUser() {
                             alt={pengguna.username}
                             style={{ width: "150px" }}
                           />
-                          {JSON.stringify(pengguna.avatar)}
                         </td>
                         <td>{pengguna.role}</td>
 
@@ -98,9 +133,14 @@ function TableUser() {
                             <i className="bi bi-pencil-square"></i>&nbsp;Ubah
                           </Link>
                           |
-                          <Link className="btn btn-danger btn-sm fw-600">
+                          <button
+                            onClick={() =>
+                              deleteUserHandler(pengguna.id, pengguna.username)
+                            }
+                            className="btn btn-danger btn-sm fw-600"
+                          >
                             <i className="bi bi-trash-fill"></i>&nbsp;Hapus
-                          </Link>
+                          </button>
                         </td>
                       </tr>
                     );

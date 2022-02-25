@@ -72,7 +72,7 @@ function UpdateProduct(props) {
           </div>
           <hr />
         </div>
-        {JSON.stringify(prefilForm)}
+        {/* {JSON.stringify(prefilForm)} */}
         <div className="row my-2">
           <div className="col-md d-flex justify-content-center">
             <form>
@@ -129,8 +129,7 @@ function UpdateProduct(props) {
                   Tanggal Kadaluarsa
                 </label>
                 <input
-                  type={{ date }}
-                  timezone="[[timezone]]"
+                  type="date"
                   className="form-control w-100"
                   id="epx"
                   name="prod_expire"
