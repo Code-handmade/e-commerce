@@ -1,4 +1,4 @@
-const { product, user } = require("../models");
+const { product, user, products_image } = require("../models");
 
 class ProductController {
   // mengambil semua produk
@@ -7,7 +7,7 @@ class ProductController {
       // const { id } = req.userData;
       let products = await product.findAll({
         order: [["id", "ASC"]],
-        include: [user],
+        include: [user, products_image],
       });
       res.status(200).json(products);
     } catch (e) {

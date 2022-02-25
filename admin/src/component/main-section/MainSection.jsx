@@ -27,7 +27,7 @@ function MainSection({ login, userLogin }) {
         <Route exact path="/product/addProduct">
           <AddProduct />
         </Route>
-        <Route exact path="/product/updateProduct">
+        <Route exact path="/product/updateProduct/:id">
           <UpdateProduct />
         </Route>
 

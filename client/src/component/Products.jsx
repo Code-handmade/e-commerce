@@ -3,20 +3,18 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Products() {
-  const [Product, setProduct] = useState([]);
-  const [filter, setFilter] = useState([Product]);
+  const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   let componentMounted = true;
 
-  const getProducts = async () => {
+  const getProduct = async () => {
     try {
       const result = await axios({
         method: "GET",
-        url: "http://localhost:3000/images",
+        url: "http://localhost:3000/products/all",
       });
       if (componentMounted) {
         setProduct(result.data);
-        setFilter(result.data);
         setLoading(false);
       }
       console.log(result.data);
@@ -29,7 +27,7 @@ function Products() {
   };
 
   useEffect(() => {
-    getProducts();
+    getProduct();
   }, []);
 
   const Loading = () => {
@@ -37,10 +35,8 @@ function Products() {
   };
 
   const filterProduct = (cat) => {
-    const updatedList = Product.filter(
-      (item) => item.product.prod_category === cat
-    );
-    setFilter(updatedList);
+    const updatedList = product.filter((item) => item.prod_category === cat);
+    setProduct(updatedList);
     console.log(updatedList);
   };
 
@@ -51,7 +47,7 @@ function Products() {
           <div
             className="btn btn-outline-dark me-2"
             onClick={() => {
-              setFilter(Product);
+              setProduct(product);
             }}
           >
             All
@@ -89,27 +85,50 @@ function Products() {
             Electronic
           </div>
         </div>
-        {filter.map((item) => {
+
+        {/* {JSON.stringify(filter)} */}
+
+        {product.map((item) => {
           return (
             <div className="col-md-3 mb-4">
-              <div class="card h-100 text-center p-4" key={item.id}>
+              <div className="card h-100 p-4" key={item.id}>
                 <img
-                  src={item.prim_file_name}
+                  src={item.products_images.map((image) => {
+                    return `${image.prim_file_name}`;
+                  })}
+                  alt=""
+                  // style={{ width: "150px" }}
                   className="card-img-top"
-                  alt={item.prim_file_name}
-                  height="150px"
                 />
+
+                {/* {item.products_images.map((image) => {
+                  console.log(`${image}`);
+                })} */}
+
                 <div className="card-body ">
-                  <h5 className="card-title mb-0">{item.product.prod_name}</h5>
+                  <h5 className="card-title mb-0">
+                    Nama Produk : {item.prod_name}
+                  </h5>
                   <p className="card-text fw-bolder">
-                    Rp {item.product.prod_category}
+                    Kategori : {item.prod_category}
                   </p>
                   <p className="card-text fw-bolder">
-                    Rp {item.product.prod_price}
+                    {" "}
+                    Harga : Rp {item.prod_price}
+                  </p>
+
+                  <p>
+                    <span>
+                      {" "}
+                      <i className="fas fa-star text-warning"></i>{" "}
+                      {item.prod_rating} <br />
+                    </span>
+                    <span>Dilihat :{item.prod_views} kali</span>
                   </p>
                   <Link
-                    to={`/products/${item.product.id}`}
-                    className="btn btn-outline-primary"
+                    to={`/products/`}
+                    className="btn btn-outline-primary "
+                    idItem={item.id}
                   >
                     <i className="fa-solid fa-alicorn"></i>
                     Order Now

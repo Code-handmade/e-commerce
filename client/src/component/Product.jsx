@@ -3,10 +3,25 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function Product() {
+function Product({ idProduct }) {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // const {
+  //   prod_brand,
+  //   prod_category,
+  //   prod_desc,
+  //   rod_expire,
+  //   prod_name,
+  //   prod_price,
+  //   prod_rating,
+  //   prod_stock,
+  //   prod_total_sold,
+  //   prod_views,
+  //   prod_weight,
+  //   products_images,
+  // } = product;
 
   // refrensi
   // useEffect(() => {
@@ -19,23 +34,23 @@ function Product() {
   //   getProduct();
   // }, []);
 
-  const getProduct = async () => {
-    try {
-      const result = await axios({
-        setLoading: true,
-        method: "GET",
-        url: `http://localhost:3000/products/${id}`,
-      });
-      setProduct(result.data);
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const getProduct = async () => {
+  //   try {
+  //     const result = await axios({
+  //       setLoading: true,
+  //       method: "GET",
+  //       url: `http://localhost:3000/products/${id}`,
+  //     });
+  //     setProduct(result.data);
+  //     setLoading(false);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getProduct();
-  }, []);
+  // useEffect(() => {
+  //   getProduct();
+  // }, []);
 
   const Loading = () => {
     return <>Loading....</>;
@@ -47,6 +62,7 @@ function Product() {
         <div className="card mb-3 max-width: 540px">
           <div className="row g-0 d-flex justify-content-center">
             <div className="col-md-4 m-auto">
+              {console.log(idProduct)}
               {/* belum ada integrasi multer */}
               {/* <img
                 src={product.image}
@@ -55,8 +71,16 @@ function Product() {
                 width="400px"
                 height="400px"
               /> */}
+              {/* <img
+                src={products_images.map((image) => {
+                  return `${image.prim_file_name}`;
+                })}
+                alt=""
+                // style={{ width: "150px" }}
+                className="card-img-top"
+              /> */}
             </div>
-            <div className="col-md-6">
+            {/* <div className="col-md-6">
               <div className="card-body">
                 <h1 className="text-black-50">{product.prod_category}</h1>
                 <h5 className="card-title">{product.prod_name}</h5>
@@ -75,7 +99,7 @@ function Product() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </>

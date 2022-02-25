@@ -115,6 +115,7 @@ class ProductImageController {
       res.status(500).json({
         message: "Server Error",
       });
+      console.log(e);
     }
   }
 }

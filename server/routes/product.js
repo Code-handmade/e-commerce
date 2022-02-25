@@ -4,9 +4,9 @@ const { authentication, authorization } = require("../middlewares/auth");
 
 // user public hari
 productRoute.get("/all", ProductController.getProducts);
-// productRoute.post("/add", ProductController.addTest);
+productRoute.get("/:id", ProductController.getById);
 productRoute.get("/:id", ProductController.getProductByIdPublic);
-
+productRoute.delete("/delete/:id", ProductController.remove);
 // fahrul
 productRoute.get("/", authentication, ProductController.getProductsByUserId);
 productRoute.get("/", authentication, ProductController.getProductsByUserId);
@@ -16,14 +16,14 @@ productRoute.post("/add", authentication, ProductController.add);
 productRoute.put(
   "/edit/:id",
   authentication,
-  authorization,
+  // authorization,
   ProductController.update
 );
-productRoute.delete(
-  "/delete/:id",
-  authentication,
-  authorization,
-  ProductController.remove
-);
+// productRoute.delete(
+//   "/delete/:id",
+//   authentication,
+//   authorization,
+//   ProductController.remove
+// );
 
 module.exports = productRoute;

@@ -8,14 +8,14 @@ function AddUser() {
       <div className="container">
         <div className="row my-2">
           <div className="col-md">
-            <h3 className="fw-bold text-uppercase">
+            <h3 className="fw-bold text-uppercase text-center mt-4">
               <i className="bi bi-person-plus-fill"></i>&nbsp;Tambah User
             </h3>
           </div>
           <hr />
         </div>
         <div className="row my-2">
-          <div className="col-md">
+          <div className="col-md d-flex justify-content-center mb-5">
             <form>
               <div className="mb-3">
                 <label for="username" className="form-label">
@@ -23,7 +23,7 @@ function AddUser() {
                 </label>
                 <input
                   type="text"
-                  className="form-control form-control-md w-50"
+                  className="form-control form-control-md w-100"
                   id="username"
                   placeholder="Masukkan Username"
                   name="username"
@@ -37,7 +37,7 @@ function AddUser() {
                 </label>
                 <input
                   type="email"
-                  className="form-control w-50"
+                  className="form-control w-100"
                   id="email"
                   placeholder="Masukkan Email User"
                   name="email"
@@ -51,7 +51,7 @@ function AddUser() {
                 </label>
                 <input
                   type="password"
-                  className="form-control w-50"
+                  className="form-control w-100"
                   id="password"
                   placeholder="Masukkan Password User"
                   name="password"
@@ -65,7 +65,7 @@ function AddUser() {
                 </label>
                 <input
                   type="date"
-                  className="form-control w-50"
+                  className="form-control w-100"
                   id="birth_day"
                   name="birth_date"
                   max="01-01-2006"
@@ -104,7 +104,7 @@ function AddUser() {
                 <label for="role" className="form-label">
                   Role
                 </label>
-                <select className="form-select w-50" id="role" name="type">
+                <select className="form-select w-100" id="role" name="type">
                   <option disabled selected value>
                     --------------------------------------------Pilih
                     Role--------------------------------------------
@@ -118,7 +118,7 @@ function AddUser() {
                   Gambar User
                 </label>
                 <input
-                  className="form-control form-control-sm w-50"
+                  className="form-control form-control-sm w-100"
                   id="gambar"
                   name="avatar"
                   type="file"
