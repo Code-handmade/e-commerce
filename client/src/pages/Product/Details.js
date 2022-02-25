@@ -117,6 +117,8 @@ const ButtonCount = styled.button`
 
 function Details({ login }) {
 
+  const history = useHistory();
+  
   const params = useParams();
 //    console.log(params);
 const [product, setProduct] = useState({});
@@ -175,6 +177,7 @@ const postLineItem = async () => {
       data:line
     });
     console.log(result.data);
+    history.push(`/cart/${id_product}`);
   } catch (error) {
     console.log(error);
   }
@@ -208,14 +211,14 @@ let total = product.prod_price*count
             <AmountContainer>
               <CardTravelOutlined />
               <ButtonCount onClick={decrementCount}>-</ButtonCount>
-              <Amount onChange={(e)=> setLine({...line, count:e.target.value})}>{count}</Amount>
+              <Amount onChange={(e)=> setLine({...line, lite_qty:e.target.value})}>{count}</Amount>
               <ButtonCount onClick={incrementCount}>+</ButtonCount>
             </AmountContainer>
-            <Link to={`/cart/${id_product}`}>
-            <Button >
+            
+            <Button type="submit" onClick={e=>submitHandler(e)}>
               ORDER
             </Button>
-            </Link>
+          
           </AddContainer>
         </InfoContainer>
       </Wrapper>

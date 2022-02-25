@@ -19,9 +19,9 @@ function CardProduct(props) {
     <div className="col-md-3 mb-4">
               <div className="card h-100 text-center p-4" key={id}>
                 <img
-                  src = {products_images}
+                  src={`$products_images.prim_file_name`}
                   className="card-img-top"
-                  alt={prod_name}
+                  alt=""
                   height="150px"
                 />
                 <div className="card-body ">
